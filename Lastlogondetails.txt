@@ -1,0 +1,1 @@
+ $userDetails=Get-ADUser -Filter * -Properties Name, LastLogonDate | Where-Object {$_.LastLogonDate -lt (Get-Date).AddDays(-30)} | Out-File "C:\Users\Administrator.DEMO\Desktop\user.txt" foreach ($User in $userDetails){ Remove-ADUser $User} 
