@@ -1,0 +1,20 @@
+
+try
+{
+   $localUsers = Get-WmiObject -Class Win32_UserAccount | where{$_.Disabled -eq $true} | Select-Object Name  #Getting all the disabled user into a variable
+    try
+    {
+        foreach ($localUser in  $localUsers.Name){
+        Write-Host $localUser
+        Remove-LocalUser -userName $localUser   #deleting all the disabled user
+      }
+    }
+    catch
+    {
+        $_.Exception.Message #in case disable fails
+    }
+}
+catch
+{
+    Write-Host "Not found disabled user"
+}
